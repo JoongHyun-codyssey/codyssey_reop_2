@@ -1,4 +1,4 @@
 class Quiz:
-    def __init__(self, questions, answers):
-        self.questions = questions
-        self.answers = answers
+    def __init__(self, question, answer):
+        self.questions = question
+        self.answers = answer
