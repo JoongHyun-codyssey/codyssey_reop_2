@@ -27,7 +27,7 @@ def main():
         )
         choose_number = int(input("메뉴 번호를 선택하세요: "))
 
-        for i in range(1, 5):
+        for i in range(len(quiz_function)):
             if choose_number == i:
                 quiz_function[i]()
                 # print(quiz_function[i]())
