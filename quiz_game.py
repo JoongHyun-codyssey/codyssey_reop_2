@@ -1,3 +1,5 @@
+from quiz import Quiz
+
 import json
 
 class QuizGame:
@@ -24,9 +26,23 @@ class QuizGame:
         try:
             with open("state.json", mode="r", encoding="utf-8") as file:
                 data = json.load(file)
-                return data.get("quiz_list") or data.get("modern_quiz_list", [])
+
+                quiz_data_list = (
+                    data.get("quiz_list") or data.get("modern_quiz_list", [])
+                )
+
+                return [
+                    Quiz(
+                        id=quiz["id"],
+                        question=quiz["question"],
+                        choices=quiz["choices"],
+                        answer=quiz["answer"]
+                    )
+                    for quiz in quiz_data_list
+                ]
+
         except (FileNotFoundError, json.JSONDecodeError):
-            return 0
+            return []
 
     def load_best_score(self):
         try:
@@ -36,9 +52,20 @@ class QuizGame:
         except (FileNotFoundError, json.JSONDecodeError):
             return 0
 
-    def save_best_score(self):
+    def save_best_score(self, new_best_score):
             data = {
-                "best_score" : self.best_score
+                "best_score" : new_best_score
             }
             with open("state.json", mode="w", encoding="utf-8") as file:
                 json.dump(data, file, ensure_ascii=False, indent=4)
+
+    def save_quiz_list(self, quiz):
+        data = {
+            "quiz_list" : [
+                quiz.to_dict()
+                for quiz in self.quiz_list
+            ]
+        }
+
+        with open("state.json", mode="w", encoding="utf-8") as file:
+            json.dump(data, file, ensure_ascii=False, indent=4)
