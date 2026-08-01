@@ -1,32 +1,10 @@
 from quiz import Quiz
 
+import json
+
 class QuizGame:
     def __init__(self):
-        self.quiz_list = [
-            {
-                "id": 1,
-                "question": "대한민국의 수도는?",
-                "choices": ["부산", "인천", "서울", "대전"],
-                "answer": "3"
-            },
-            {
-                "id": 2,
-                "question": "1 + 1의 결과는?",
-                "choices": ["1", "2", "3", "4"],
-                "answer": "2"
-            },
-            {
-                "id": 3,
-                "question": "파이썬의 창시자는?",
-                "choices": [
-                    "제임스 고슬링",
-                    "귀도 반 로섬",
-                    "데니스 리치",
-                    "브렌던 아이크"
-                ],
-                "answer": "2"
-            }
-        ]
+        self.quiz_list = self.load_quiz_list()
         self.best_score = self.load_best_score()
 
     def guess_quiz(self):
@@ -120,3 +98,26 @@ class QuizGame:
 
     def end_quiz(self):
         return "퀴즈 끝내기"
+
+    def load_quiz_list(self):
+        try:
+            with open("state.json", mode="r", encoding="utf-8") as file:
+                data = json.load(file)
+                return data.get("quiz_list") or data.get("modern_quiz_list", [])
+        except (FileNotFoundError, json.JSONDecodeError):
+            return 0
+
+    def load_best_score(self):
+        try:
+            with open("state.json", mode="r", encoding="utf-8") as file:
+                data = json.load(file)
+                return data.get("best_score", 0)
+        except (FileNotFoundError, json.JSONDecodeError):
+            return 0
+
+    def save_best_score(self):
+            data = {
+                "best_score" : self.best_score
+            }
+            with open("state.json", mode="w", encoding="utf-8") as file:
+                json.dump(data, file, ensure_ascii=False, indent=4)
