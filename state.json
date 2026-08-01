@@ -1,3 +1,26 @@
 {
-  "score_history" : "0"
+  "best_score" : 0,
+  "quiz_list": [],
+  "modern_quiz_list": [
+      {
+        "question": "대한민국의 수도는?",
+        "choices": ["부산", "인천", "서울", "대전"],
+        "answer": "3"
+      },
+      {
+        "question": "1 + 1의 결과는?",
+        "choices": ["1", "2", "3", "4"],
+        "answer": "2"
+      },
+      {
+        "question": "파이썬의 창시자는?",
+        "choices": [
+          "제임스 고슬링",
+          "귀도 반 로섬",
+          "데니스 리치",
+          "브렌던 아이크"
+        ],
+        "answer": "2"
+      }
+  ]
 }
