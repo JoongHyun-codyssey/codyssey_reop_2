@@ -37,13 +37,14 @@ class QuizGame:
                 f"{i}. {choice}"
                 for i, choice in enumerate(quiz["choices"], start=1)
             )
-            quiz_text = f"""
-📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)
-------------------
-[문제 {quiz['id']}]
-{quiz['question']}
-{choices}
-            """
+            quiz_text = (
+                f"📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)\n"
+                "------------------\n"
+                f"[문제 {quiz['id']}]\n"
+                f"{quiz['question']}\n"
+                f"{choices}"
+            )
+
             print(quiz_text)
             answer = input("정답을 입력하세요 (1~4): ")
             if answer == quiz["answer"]:
@@ -52,10 +53,9 @@ class QuizGame:
             else:
                 print("❌오답입니다!")
 
-        if guessed_quiz == len(self.quiz_list):
-            result_text = f"""
-🏆 결과 : {len(self.quiz_list)}문제 중 {guessed_quiz}문제 정답! ({guessed_quiz * 20}점)
-"""
+            result_text = (
+                f"결과 : {len(self.quiz_list)}문제 중 {guessed_quiz}문제 정답! ({guessed_quiz * 20}점)"
+            )
         return "퀴즈 맞추기"
 
     def add_quiz(self):
