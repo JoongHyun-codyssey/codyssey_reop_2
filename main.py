@@ -5,35 +5,9 @@ def main():
 
     game_is_on = True
 
-    quiz_function = {
-        1: quiz_game.guess_quiz,
-        2: quiz_game.add_quiz,
-        3: quiz_game.list_quiz,
-        4: quiz_game.check_score,
-    }
-
     while game_is_on:
-        print(
-            "\n"
-            "================================\n"
-            "           QUIZ GAME\n"
-            "================================\n"
-            "  [1] 퀴즈 출제\n"
-            "  [2] 퀴즈 등록\n"
-            "  [3] 퀴즈 목록\n"
-            "  [4] 점수 확인\n"
-            "  [5] 종료\n"
-            "--------------------------------"
-        )
-        choose_number = int(input("메뉴 번호를 선택하세요: "))
-
-        for i in range(len(quiz_function) + 1):
-            if choose_number == i:
-                quiz_function[i]()
-            elif choose_number == 5:
-                print("퀴즈를 종료합니다!")
-                game_is_on = False
-                break
+        result = quiz_game.show_menu()
+        game_is_on = result
 
 if __name__ == "__main__":
     main()

@@ -7,6 +7,35 @@ class QuizGame:
         self.quiz_list = self.load_quiz_list()
         self.best_score = self.load_best_score()
 
+    def show_menu(self):
+        quiz_function = {
+            1: self.guess_quiz,
+            2: self.add_quiz,
+            3: self.list_quiz,
+            4: self.check_score,
+        }
+
+        print(
+            "\n"
+            "================================\n"
+            "           QUIZ GAME\n"
+            "================================\n"
+            "  [1] 퀴즈 출제\n"
+            "  [2] 퀴즈 등록\n"
+            "  [3] 퀴즈 목록\n"
+            "  [4] 점수 확인\n"
+            "  [5] 종료\n"
+            "--------------------------------"
+        )
+        choose_number = int(input("메뉴 번호를 선택하세요: "))
+
+        for i in range(len(quiz_function) + 1):
+            if choose_number == i:
+                quiz_function[i]()
+            elif choose_number == 5:
+                print("퀴즈를 종료합니다!")
+                return False
+
     def guess_quiz(self):
         guessed_quiz = 0
 
@@ -112,9 +141,6 @@ class QuizGame:
     def check_score(self):
         print(f"🏆최고 점수:{self.load_best_score()}")
         return "최고 점수 확인"
-
-    def end_quiz(self):
-        return "퀴즈 끝내기"
 
     def get_new_quiz_id(self):
         try:
