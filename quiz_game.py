@@ -13,27 +13,39 @@ class QuizGame:
         for quiz in self.quiz_list:
             choices = "\n".join(
                 f"{i}. {choice}"
-                for i, choice in enumerate(quiz["choices"], start=1)
+                for i, choice in enumerate(quiz.choices, start=1)
             )
             quiz_text = (
                 f"📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)\n"
                 "------------------\n"
-                f"[문제 {quiz['id']}]\n"
-                f"{quiz['question']}\n"
+                f"[문제 {quiz.id}]\n"
+                f"{quiz.question}\n"
                 f"{choices}"
             )
-
             print(quiz_text)
-            answer = input("정답을 입력하세요 (1~4): ")
-            if answer == quiz["answer"]:
-                print("✅정답입니다!\n------------------")
-                guessed_quiz += 1
-            else:
-                print("❌오답입니다!")
 
-            result_text = (
+            while True:
+                answer = input("정답을 입력하세요 (1~4): ")
+                if answer not in ("1", "2", "3", "4"):
+                    print("⚠️잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.")
+                    continue
+
+                if answer == quiz.answer:
+                    print("✅정답입니다!\n------------------")
+                    guessed_quiz += 1
+                else:
+                    print("❌오답입니다!")
+                break
+
+        result_text = (
                 f"결과 : {len(self.quiz_list)}문제 중 {guessed_quiz}문제 정답! ({guessed_quiz * 20}점)"
             )
+        print (result_text)
+
+        if self.best_score < guessed_quiz * 20:
+            print("🎉 새로운 최고 점수입니다!")
+            self.save_best_score(guessed_quiz * 20)
+
         return "퀴즈 맞추기"
 
     def add_quiz(self):
@@ -89,7 +101,13 @@ class QuizGame:
     def list_quiz(self):
         if len(self.quiz_list) != 0:
             for quiz in self.quiz_list:
-                print(f"{quiz["id"]}. {quiz["question"]}")
+                quiz_list_text = (
+                    f"📋등록된 퀴즈 목록 (총 {len(self.load_quiz_list())}개)"
+                    f"-----------------------------"
+                    f"{quiz["id"]}. {quiz["question"]}"
+                    f"-----------------------------"
+                )
+                print(quiz_list_text)
 
         return "퀴즈 목록 보기"
 
