@@ -6,8 +6,7 @@ def main():
     game_is_on = True
 
     while game_is_on:
-        result = quiz_game.show_menu()
-        game_is_on = result
+        game_is_on = quiz_game.show_menu()
 
 if __name__ == "__main__":
     main()
