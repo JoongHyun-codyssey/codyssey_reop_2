@@ -91,7 +91,7 @@ class QuizGame:
             except ValueError:
                 print("숫자만 입력해주세요")
 
-        new_quiz = Quiz(id=len(self.load_quiz_list()), question=quiz_question, choices=choices, answer=answer)
+        new_quiz = Quiz(id=self.get_new_quiz_id(), question=quiz_question, choices=choices, answer=answer)
         self.save_quiz_list(new_quiz)
         self.quiz_list = self.load_quiz_list()
 
@@ -110,7 +110,8 @@ class QuizGame:
         return "퀴즈 목록 보기"
 
     def check_score(self):
-        return "점수 확인하기"
+        print(f"🏆최고 점수:{self.load_best_score()}")
+        return "최고 점수 확인"
 
     def end_quiz(self):
         return "퀴즈 끝내기"
