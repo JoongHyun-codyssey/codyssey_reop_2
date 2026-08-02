@@ -115,6 +115,16 @@ class QuizGame:
     def end_quiz(self):
         return "퀴즈 끝내기"
 
+    def get_new_quiz_id(self):
+        try:
+            with open("state.json", mode="r", encoding="utf-8") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = {}
+
+        saved_quiz_list = data.get("quiz_list", [])
+        return len(saved_quiz_list)
+
     def load_quiz_list(self):
         try:
             with open("state.json", mode="r", encoding="utf-8") as file:
