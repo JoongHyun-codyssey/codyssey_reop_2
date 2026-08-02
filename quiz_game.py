@@ -28,13 +28,16 @@ class QuizGame:
             "--------------------------------"
         )
         choose_number = int(input("메뉴 번호를 선택하세요: "))
+        if choose_number == 5:
+            print("퀴즈를 종료합니다!")
+            return False
 
-        for i in range(len(quiz_function) + 1):
-            if choose_number == i:
-                quiz_function[i]()
-            elif choose_number == 5:
-                print("퀴즈를 종료합니다!")
-                return False
+        if choose_number in quiz_function:
+            quiz_function[choose_number]()
+            return True
+
+        print("잘못된 메뉴 번호입니다.")
+        return True
 
     def guess_quiz(self):
         guessed_quiz = 0
