@@ -27,16 +27,13 @@ def main():
         )
         choose_number = int(input("메뉴 번호를 선택하세요: "))
 
-        for i in range(len(quiz_function)):
+        for i in range(len(quiz_function) + 1):
             if choose_number == i:
                 quiz_function[i]()
-                # print(quiz_function[i]())
             elif choose_number == 5:
                 print("퀴즈를 종료합니다!")
                 game_is_on = False
                 break
-            else:
-                print("제대로 된 번호를 입력하세요")
 
 if __name__ == "__main__":
     main()

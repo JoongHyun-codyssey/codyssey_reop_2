@@ -18,7 +18,7 @@ class QuizGame:
             quiz_text = (
                 f"📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)\n"
                 "------------------\n"
-                f"[문제 {quiz.id}]\n"
+                f"[문제 {quiz.id + 1}]\n"
                 f"{quiz.question}\n"
                 f"{choices}"
             )
@@ -44,7 +44,7 @@ class QuizGame:
 
         if self.best_score < guessed_quiz * 20:
             print("🎉 새로운 최고 점수입니다!")
-            self.save_best_score(guessed_quiz * 20)
+            self.save_best_score(int(guessed_quiz * 20))
 
         return "퀴즈 맞추기"
 
@@ -62,8 +62,7 @@ class QuizGame:
             is_duplicate = False
 
             for quiz in self.quiz_list:
-                # quiz_list를 Quiz 객체로 연결 후 quiz.question로 변경
-                if quiz["question"] == quiz_question:
+                if quiz.question == quiz_question:
                     is_duplicate = True
                     break
 
@@ -92,22 +91,21 @@ class QuizGame:
             except ValueError:
                 print("숫자만 입력해주세요")
 
-        new_quiz = Quiz(id=len(self.quiz_list) + 1, question=quiz_question, choices=choices, answer=answer)
-        self.quiz_list.append(new_quiz)
+        new_quiz = Quiz(id=len(self.load_quiz_list()), question=quiz_question, choices=choices, answer=answer)
+        self.save_quiz_list(new_quiz)
+        self.quiz_list = self.load_quiz_list()
 
         return "✅퀴즈가 추가되었습니다!"
 
 
     def list_quiz(self):
         if len(self.quiz_list) != 0:
+            print(f"📋등록된 퀴즈 목록 (총 {len(self.load_quiz_list())}개)")
+            print(f"-----------------------------")
             for quiz in self.quiz_list:
-                quiz_list_text = (
-                    f"📋등록된 퀴즈 목록 (총 {len(self.load_quiz_list())}개)"
-                    f"-----------------------------"
-                    f"{quiz["id"]}. {quiz["question"]}"
-                    f"-----------------------------"
-                )
+                quiz_list_text = f"{quiz.id + 1}. {quiz.question}"
                 print(quiz_list_text)
+            print(f"-----------------------------")
 
         return "퀴즈 목록 보기"
 
@@ -148,19 +146,26 @@ class QuizGame:
             return 0
 
     def save_best_score(self, new_best_score):
-            data = {
-                "best_score" : new_best_score
-            }
-            with open("state.json", mode="w", encoding="utf-8") as file:
-                json.dump(data, file, ensure_ascii=False, indent=4)
+        try:
+            with open("state.json", mode="r", encoding="utf-8") as file:
+                json_data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            json_data = {}
 
-    def save_quiz_list(self, quiz):
-        data = {
-            "quiz_list" : [
-                quiz.to_dict()
-                for quiz in self.quiz_list
-            ]
-        }
+        json_data["best_score"] = new_best_score
+
+        with open("state.json", mode="w", encoding="utf-8") as file:
+            json.dump(json_data, file, ensure_ascii=False, indent=4)
+
+    def save_quiz_list(self, new_quiz):
+        try:
+            with open("state.json", mode="r", encoding="utf-8") as file:
+                data = json.load(file)
+        except (FileNotFoundError, json.JSONDecodeError):
+            data = {}
+
+        data["quiz_list"].append(new_quiz
+                                 .to_dict())
 
         with open("state.json", mode="w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
