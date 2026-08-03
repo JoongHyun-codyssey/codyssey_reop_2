@@ -8,18 +8,21 @@
 > 데이터 영속성을 경험합니다.
 > 기능별로 Git 브랜치를 나누어 작업하고, 완성된 기능을 병합하여 변경 이력을 관리합니다.
 
+## 퀴즈 주제 선정과 이유
+현재 AI 관련 교육과 프로젝트를 진행하며 AI 기술을 학습하고 있고 학습한 내용을 퀴즈 형식으로 복습하고 AI에 대한 이해를 높이기 위해 AI를 주제로 선정했습니다.
+
 ## 수행 체크 리스트
 
-- [ ] 프로젝트 초기 구조 생성
-- [ ] 터미널 메뉴 기본 구조 작성
-- [ ] `Quiz`, `QuizGame` 클래스 초기 설정
-- [ ] 퀴즈 등록 기능 구현
-- [ ] 퀴즈 목록 조회 기능 구현
-- [ ] 퀴즈 출제 및 정답 확인 기능 구현
-- [ ] 점수 계산 기능 구현
-- [ ] JSON 점수 저장 및 불러오기 구현
-- [ ] 잘못된 사용자 입력 예외 처리
-- [ ] 전체 기능 실행 확인
+- [v] 프로젝트 초기 구조 생성
+- [v] 터미널 메뉴 기본 구조 작성
+- [v] `Quiz`, `QuizGame` 클래스 초기 설정
+- [v] 퀴즈 등록 기능 구현
+- [v] 퀴즈 목록 조회 기능 구현
+- [v] 퀴즈 출제 및 정답 확인 기능 구현
+- [v] 점수 계산 기능 구현
+- [v] JSON 점수 저장 및 불러오기 구현
+- [v] 잘못된 사용자 입력 예외 처리
+- [v] 전체 기능 실행 확인
 
 ## 주요 기능
 
@@ -38,20 +41,46 @@
 
 ### `QuizGame`
 
-여러 개의 퀴즈와 점수를 관리하고, 퀴즈 등록·목록·출제 기능을 제공합니다.
+여러 개의 퀴즈와 점수를 관리하고, 퀴즈 메뉴 출력·등록·목록·출제 기능을 제공합니다.
 
 ### `main.py`
 
-메뉴를 출력하고 사용자가 선택한 기능을 실행합니다.
+프로그램을 실행합니다.
 
 ## 프로젝트 구조
 
 ```text
 codyssey_mission_2/
-├── main.py         # 프로그램 실행 및 메뉴 처리
+├── images
+│   └── after_clone.png
+│   └── before_clone.png
+│   └── ...
+│   └── (기타 실습 이미지)
+├── main.py         # 프로그램 실행
 ├── quiz.py         # Quiz 클래스
 ├── quiz_game.py    # QuizGame 클래스
+└── state.json      # 최고 점수 저장 및 퀴즈 저장 데이터 파일
 └── README.md       # 프로젝트 설명
+```
+
+codyssey_mission_2/state.json
+```json
+{
+  "best_score" : 10,
+  "quiz_list": [],
+  "modern_quiz_list" : [{
+    "id" : 0,
+    "question" : "json",
+    "choices" : [
+      "choice_1",
+      "choice_2",
+      "choice_3",
+      "choice_4"
+    ],
+    "answer" : 1
+  }]
+}
+
 ```
 
 ## 실행 방법
@@ -68,5 +97,75 @@ python3 main.py
 - `feature/quiz`: 퀴즈 등록·목록·출제 기능
 - `feature/json-storage`: JSON 점수 저장 및 불러오기
 
-## Git clone 결과
-- 현재 Git clone 실습중입니다.
+# 주요기능
+
+## 퀴즈 메뉴 화면
+---
+사용자는 5가지의 메뉴를 이용할 수 있습니다.
+![quiz_menu](images/quiz_menu.png)
+
+## 퀴즈 풀이
+---
+사용자가 등록한 퀴즈가 없다면 기본으로 제공하는 퀴즈를 객관식으로 풀 수 있으며 정답/오답 여부를 알 수 있습니다.
+![menu_to_guess](images/menu_to_guess.png)
+![guess_screen](images/guess_quiz_screen.png)
+
+## 퀴즈 정답 및 오답
+### 정답
+![correct_quiz](images/quiz_correct.png)
+### 오답
+![incorrect_quiz](images/quiz_incorrect.png)
+
+## 결과 화면
+사용자가 모든 문제를 풀었다면 얼마나 많은 문제를 풀었는지, 최고 점수를 달성했는지 확인할 수 있습니다.
+### 최고 점수를 달성했을때
+![result_high_score](images/result_high_score.png)
+### 최고 점수를 달성하지 못했을때
+![result_no_high_score](images/result_no_high_score.png)
+
+## 퀴즈 등록
+사용자는 기본 문제가 아닌 사용자가 퀴즈를 등록하여 문제를 풀 수 있습니다.
+![menu_to_add](images/add_quiz.png)
+![add_quiz](images/add_quiz_list.png)
+
+## 결과화면
+![datafile_result](images/json_result.png)
+
+## 퀴즈 목록 확인
+사용자가 문제를 등록하지 않았을 시 5개의 기본 문제가 출제되며 문제 등록 이후부터 사용자 문제 리스트를 사용합니다.
+![before_add_quiz](images/quiz_list_before_add.png)
+## 결과화면
+![after_add_quiz](images/quiz_list_after_add.png)
+
+## 점수 확인
+사용자는 현재 자신의 최고 점수를 확인할 수 있다.
+![check_high_score](images/check_high_score.png)
+
+## 퀴즈 종료
+사용자가 프로그램의 사용을 마치는 결과이다.
+![end_quiz](images/end_quiz.png)
+
+## 예외처리
+사용자가 허용되지 않은 값이나 메뉴 번호를 입력했을때 프로그램이 종료되지 않게 예외처리를 적용했습니다.
+또한 KeyboardInterrupt를 사용하여 Ctrl+C 입력으로 프로그램이 즉시 종료되지 않게 구현했습니다.
+![except_menu](images/except_to_menu.png)
+![except_guess](images/except_to_guess.png)
+![except_add_quiz](images/except_add_quiz.png)
+![except_ctrlc](images/except_ctrl_c.png)
+
+## Git clone 실습
+원격 저장소를 로컬 환경으로 복제하는 git clone 명령어를 실습했습니다.
+저장소를 복제한 후 파일을 수정하고 커밋 및 푸시를 진행하여 원격 저장소와 동기화되는 과정을 확인했습니다.
+
+![empty_folder](images/clone%20empty%20folder.png)
+
+## clone 결과화면
+![after_clone](images/after%20clone.png)
+
+## clone후 파일 수정 후 원격 저장소에 push까지
+![clone_edit](images/clone%20readme%20edit.png)
+![clone_commit](images/clone%20commit.png)
+![clone_push](images/clone%20push.png)
+
+## 결과화면
+![clone_result](images/clone%20result.png)

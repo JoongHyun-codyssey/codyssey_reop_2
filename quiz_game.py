@@ -27,7 +27,23 @@ class QuizGame:
             "  [5] 종료\n"
             "--------------------------------"
         )
-        choose_number = int(input("메뉴 번호를 선택하세요: "))
+        while True:
+            try:
+                choose_number = int(input("메뉴 번호를 선택하세요: "))
+
+                if choose_number < 1 or choose_number > 5:
+                    print("잘못된 메뉴 번호입니다.")
+                    continue
+
+                break
+
+            except ValueError:
+                print("숫자만 입력해주세요.")
+                continue
+            except KeyboardInterrupt:
+                print("\nCtrl+C로 종료할 수 없습니다. 메뉴 번호를 입력해 주세요.")
+                continue
+
         if choose_number == 5:
             print("퀴즈를 종료합니다!")
             return False
@@ -36,29 +52,29 @@ class QuizGame:
             quiz_function[choose_number]()
             return True
 
-        print("잘못된 메뉴 번호입니다.")
         return True
 
     def guess_quiz(self):
         guessed_quiz = 0
 
+        print(f"📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)\n")
         for quiz in self.quiz_list:
             choices = "\n".join(
                 f"{i}. {choice}"
                 for i, choice in enumerate(quiz.choices, start=1)
             )
             quiz_text = (
-                f"📋 퀴즈를 시작합니다! (총 {len(self.quiz_list)}문제)\n"
                 "------------------\n"
                 f"[문제 {quiz.id + 1}]\n"
                 f"{quiz.question}\n"
-                f"{choices}"
+                f"{choices}\n"
+                "------------------\n"
             )
             print(quiz_text)
 
             while True:
-                answer = input("정답을 입력하세요 (1~4): ")
-                if answer not in ("1", "2", "3", "4"):
+                answer = int(input("정답을 입력하세요 (1~4): "))
+                if answer not in (1, 2, 3, 4):
                     print("⚠️잘못된 입력입니다. 1-4 사이의 숫자를 입력하세요.")
                     continue
 

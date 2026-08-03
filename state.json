@@ -1,61 +1,95 @@
 {
-    "best_score": 100,
-    "quiz_list": [],
-    "modern_quiz_list": [
+    "best_score": 60,
+    "quiz_list": [
         {
             "id": 0,
-            "question": "대한민국의 수도는?",
+            "question": "AI가 이미지를 만드는 기술을 무엇이라고 할까?",
             "choices": [
-                "부산",
-                "인천",
-                "서울",
-                "대전"
+                "이미지 생성 AI",
+                "압축 프로그램",
+                "방화벽",
+                "BIOS"
             ],
-            "answer": "3"
+            "answer": 1
         },
         {
             "id": 1,
-            "question": "1 + 1의 결과는?",
+            "question": "예외처리 테스트 중",
             "choices": [
-                "1",
-                "2",
-                "3",
-                "4"
+                "테스트1",
+                "테스트2",
+                "테스트3",
+                "테스트4"
             ],
-            "answer": "2"
+            "answer": 1
         },
         {
             "id": 2,
-            "question": "파이썬의 창시자는?",
+            "question": "테스트2",
             "choices": [
-                "제임스 고슬링",
-                "귀도 반 로섬",
-                "데니스 리치",
-                "브렌던 아이크"
+                "테스트1",
+                "테스트2",
+                "테스트3",
+                "테스트4"
             ],
-            "answer": "2"
+            "answer": 2
+        }
+    ],
+    "modern_quiz_list": [
+        {
+            "id": 0,
+            "question": "ChatGPT를 만든 회사는?",
+            "choices": [
+                "Google",
+                "Microsoft",
+                "OpenAI",
+                "NVIDIA"
+            ],
+            "answer": 3
+        },
+        {
+            "id": 1,
+            "question": "AI가 학습하는 데 사용하는 데이터를 무엇이라고 할까?",
+            "choices": [
+                "훈련 데이터",
+                "시스템 파일",
+                "캐시",
+                "로그 파일"
+            ],
+            "answer": 1
+        },
+        {
+            "id": 2,
+            "question": "생성형 AI(Generative AI)의 예는?",
+            "choices": [
+                "계산기",
+                "ChatGPT",
+                "메모장",
+                "파일 탐색기"
+            ],
+            "answer": 2
         },
         {
             "id": 3,
-            "question": "세계 최초로 달에 착륙한 사람은?",
+            "question": "다음 중 AI가 가장 잘하는 작업은?",
             "choices": [
-                "유리 가가린",
-                "닐 암스트롱",
-                "버즈 올드린",
-                "존 글렌"
+                "대량의 데이터를 분석하는 것",
+                "직접 물건을 들어 옮기는 것",
+                "배터리 충전하기",
+                "컴퓨터 전원 공급하기"
             ],
-            "answer": "2"
+            "answer": 1
         },
         {
             "id": 4,
-            "question": "인터넷에서 웹 페이지의 주소를 나타내는 것은?",
+            "question": "프롬프트(Prompt)란 무엇인가?",
             "choices": [
-                "URL",
-                "CPU",
-                "RAM",
-                "HTML"
+                "AI에게 입력하는 질문이나 명령",
+                "컴퓨터의 전원 버튼",
+                "인터넷 주소",
+                "운영체제의 이름"
             ],
-            "answer": "1"
+            "answer": 1
         }
     ]
 }
