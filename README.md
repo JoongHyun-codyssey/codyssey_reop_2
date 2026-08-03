@@ -10,6 +10,26 @@ Python 문법을 사용해 입출력 흐름을 만들고, 클래스로 역할을
 ## 퀴즈 주제 선정과 이유
 현재 AI 관련 교육과 프로젝트를 진행하며 AI 기술을 학습하고 있고 학습한 내용을 퀴즈 형식으로 복습하고 AI에 대한 이해를 높이기 위해 AI를 주제로 선정했습니다.
 
+## 개발 환경
+
+| 항목 | 내용 |
+|------|------|
+| OS | macOS |
+| Language | Python 3.x |
+| IDE | PyCharm |
+| Version Control | Git, GitHub |
+| Git Version | git version 2.39.5 (Apple Git-154) |
+| Shell | Bash |
+| Terminal | PyCharm Terminal |
+| Data Format | JSON |
+
+### 개발환경 스크린샷
+![파이참버전](images/pycharm_version.png)
+![파이썬버전](images/python_version.png)
+![Git버전](images/git_version.png)
+![Git설정](images/git_config.png)
+
+
 ## 수행 체크 리스트
 
 - [v] 프로젝트 초기 구조 생성
@@ -166,6 +186,9 @@ python3 main.py
 
 ## 결과화면
 ![clone_result](images/clone%20result.png)
+
+## Git log 스크린샷
+![Git로그](/images/git_log_screenshot.png)
 
 ## 트러블슈팅
 
