@@ -67,3 +67,6 @@ python3 main.py
 - `feature/menu`: 메뉴 출력 및 선택 기능
 - `feature/quiz`: 퀴즈 등록·목록·출제 기능
 - `feature/json-storage`: JSON 점수 저장 및 불러오기
+
+## Git clone 결과
+- 현재 Git clone 실습중입니다.
