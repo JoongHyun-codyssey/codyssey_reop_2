@@ -2,11 +2,10 @@
 
 ## 미션 소개
 
-> 이 미션에서는 터미널에서 동작하는 나만의 퀴즈 게임을 구현합니다.
-> Python 문법을 사용해 입출력 흐름을 만들고, 클래스로 역할을 구조화합니다.
-> 또한 JSON 파일을 활용하여 프로그램을 종료해도 점수 데이터가 유지되는
-> 데이터 영속성을 경험합니다.
-> 기능별로 Git 브랜치를 나누어 작업하고, 완성된 기능을 병합하여 변경 이력을 관리합니다.
+이 미션에서는 터미널에서 동작하는 나만의 퀴즈 게임을 구현합니다.
+Python 문법을 사용해 입출력 흐름을 만들고, 클래스로 역할을 구조화합니다.
+또한 JSON 파일을 활용하여 프로그램을 종료해도 점수 데이터가 유지되는 데이터 영속성을 경험합니다.
+기능별로 Git 브랜치를 나누어 작업하고, 완성된 기능을 병합하여 변경 이력을 관리합니다.
 
 ## 퀴즈 주제 선정과 이유
 현재 AI 관련 교육과 프로젝트를 진행하며 AI 기술을 학습하고 있고 학습한 내용을 퀴즈 형식으로 복습하고 AI에 대한 이해를 높이기 위해 AI를 주제로 선정했습니다.
@@ -100,12 +99,10 @@ python3 main.py
 # 주요기능
 
 ## 퀴즈 메뉴 화면
----
 사용자는 5가지의 메뉴를 이용할 수 있습니다.
 ![quiz_menu](images/quiz_menu.png)
 
 ## 퀴즈 풀이
----
 사용자가 등록한 퀴즈가 없다면 기본으로 제공하는 퀴즈를 객관식으로 풀 수 있으며 정답/오답 여부를 알 수 있습니다.
 ![menu_to_guess](images/menu_to_guess.png)
 ![guess_screen](images/guess_quiz_screen.png)
@@ -169,3 +166,56 @@ python3 main.py
 
 ## 결과화면
 ![clone_result](images/clone%20result.png)
+
+## 트러블슈팅
+
+### 1. 최고 점수 저장 시 퀴즈 데이터가 사라지는 문제
+
+#### 증상
+퀴즈를 실행하여 최고 점수를 저장한 뒤 `state.json`을 확인했더니 `quiz_list`와 `modern_quiz_list`가 사라지고 `best_score`만 남았습니다.
+
+#### 원인
+`save_best_score()`에서 기존 JSON 데이터를 읽지 않고 `mode="w"`로 새로운 딕셔너리만 저장했습니다.
+
+```python
+with open("state.json", mode="w", encoding="utf-8") as file:
+```
+
+`mode="w"`는 기존 파일 내용을 모두 삭제한 뒤 새 내용을 작성하기 때문에 기존 퀴즈 데이터가 함께 삭제되었습니다.
+
+#### 해결
+기존 `state.json` 데이터를 먼저 읽어온 뒤 `best_score`만 수정하여 다시 저장하도록 변경했습니다.
+
+---
+
+### 2. 새로 등록한 퀴즈의 ID가 5부터 시작하는 문제
+
+#### 증상
+사용자 퀴즈를 처음 등록했는데 ID가 `0`이 아닌 `5`부터 생성되었습니다.
+
+#### 원인
+`load_quiz_list()`가 `quiz_list`가 비어 있을 경우 기본 퀴즈(`modern_quiz_list`)를 반환하도록 구현되어 있었습니다.
+
+```python
+data.get("quiz_list") or data.get("modern_quiz_list", [])
+```
+
+이후 ID를 다음과 같이 생성하면서 기본 퀴즈 개수인 `5`가 그대로 사용되었습니다.
+
+```python
+id = len(self.load_quiz_list())
+```
+
+#### 해결
+사용자 퀴즈의 ID는 `modern_quiz_list`와 분리하여 실제 `quiz_list`의 개수만 기준으로 생성하도록 수정했습니다.
+
+```python
+def get_new_quiz_id(self):
+    try:
+        with open("state.json", "r", encoding="utf-8") as file:
+            data = json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return 0
+
+    return len(data.get("quiz_list", []))
+```
